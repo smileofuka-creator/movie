@@ -8,24 +8,46 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import MovieCard from "@/components/ui/MovieCard";
-import { PlayIcon, RemoveFormatting, Star } from "lucide-react";
+import {
+  Film,
+  MoveRight,
+  PlayIcon,
+  RemoveFormatting,
+  Search,
+  Star,
+} from "lucide-react";
 import { Play } from "next/font/google";
 import Image from "next/image";
+import Footer from "@/components/ui/Footer";
 
 export default function Home() {
   return (
     <div>
       <div>
-        <nav>
-          <div>{/* <Image src="/logo.png" alt="logo" /> */}</div>
+        <nav className="w-full max-w-[1440px]   top-0 z-50 h-16 flex items-center">
+          <div className="max-w-[1280px] mx-auto w-full px-4 md:px-16 flex items-center  gap-4">
+            <Film className="w-5 h-5" />
+            <span className="font-bold text-lg italic tracking-tight">
+              Movie Z
+            </span>
+          </div>
+          <div className="flex items-center flex-1 max-w-[600px] gap-2">
+            <button className="flex items-center gap-2 border-gray-200 h-10 px-3 text-sm">
+              Genre
+            </button>
+            <div>
+              <Search />
+              <input type="text" placeholder="Search ..." />
+            </div>
+          </div>
         </nav>
         <Carousel className="w-full max-w-[1440px] mx-auto  relative group">
           <CarouselContent>
             {Array.from({ length: 5 }).map((_, index) => (
               <CarouselItem key={index}>
-                <div className="p-1">
+                <div className="p-0">
                   <Card className="relative overflow-hidden rounded-none border-none">
-                    <CardContent className="p-0 relative h-[450px] md:h-[580px] w-full flex aspect-square items-center justify-center p-6">
+                    <CardContent className="p-0 relative h-[450px] md:h-[580px] w-full  ">
                       <Image
                         src="/Feature.png"
                         fill
@@ -82,8 +104,15 @@ export default function Home() {
           />
         </Carousel>
         <div />
-        <div className="max-w-[1440px] mx-auto px-4 md:px-16 py-10">
-          <h2 className="text-2xl font-bold text-black mb-6">Popular Movies</h2>
+        <div className="max-w-[1440px] items-center mx-auto px-4 md:px-16 py-10">
+          <div className="w-full flex justify-between items-center">
+            <h3 className=" text-2xl font-bold text-black mb-6">Upcoming</h3>
+            <div className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors">
+              <span>See more</span>
+              <MoveRight className="w-[9.33px] h-[9.33px]"></MoveRight>
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-items-center">
             <MovieCard
               title="Dear Santa"
@@ -133,6 +162,133 @@ export default function Home() {
             ></MovieCard>
           </div>
         </div>
+
+        <div className="max-w-[1440px] items-center mx-auto px-4 md:px-16 py-10">
+          <div className="flex justify-between items-center">
+            <h3 className=" text-2xl font-bold text-black mb-6">Popular</h3>
+            <div className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors">
+              <span>See more</span>
+              <MoveRight className="w-[9.33px] h-[9.33px]"></MoveRight>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-items-center">
+            <MovieCard
+              title="The Shawshank Redemption"
+              rating={6.9}
+              imageUrl="shawshank.png"
+            ></MovieCard>
+            <MovieCard
+              title="The Godfather"
+              rating={6.9}
+              imageUrl="father.png"
+            ></MovieCard>
+            <MovieCard
+              title="The Dark Knight"
+              rating={6.9}
+              imageUrl="dark.png"
+            ></MovieCard>
+            <MovieCard
+              title="12 Angry Men"
+              rating={6.9}
+              imageUrl="angry.png"
+            ></MovieCard>
+            <MovieCard
+              title="The Lord of the Rings: The  Return of the King"
+              rating={6.9}
+              imageUrl="lord.png"
+            ></MovieCard>
+            <MovieCard
+              title="Internstellar"
+              rating={6.9}
+              imageUrl="Internstellar.png"
+            ></MovieCard>
+            <MovieCard
+              title="Se7en"
+              rating={6.9}
+              imageUrl="Se7en.png"
+            ></MovieCard>
+            <MovieCard
+              title="It’s a Wonderful life"
+              rating={6.9}
+              imageUrl="wonderful.png"
+            ></MovieCard>
+            <MovieCard
+              title="Seven samurai"
+              rating={6.9}
+              imageUrl="samurao.png"
+            ></MovieCard>
+            <MovieCard
+              title="The Silence of the Lambs"
+              rating={6.9}
+              imageUrl="silence.png"
+            ></MovieCard>
+          </div>
+        </div>
+
+        <div className="max-w-[1440px] items-center mx-auto px-4 md:px-16 py-10">
+          <div className="flex justify-between items-center">
+            <h3 className=" text-2xl font-bold text-black mb-6">Top Rated </h3>
+            <div className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors">
+              <span>See more</span>
+              <MoveRight className="w-[9.33px] h-[9.33px]"></MoveRight>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-items-center">
+            <MovieCard
+              title="Pulp Fiction"
+              rating={6.9}
+              imageUrl="pulp.png"
+            ></MovieCard>
+            <MovieCard
+              title="The Lord of the Rings: Fellowship of the Kings"
+              rating={6.9}
+              imageUrl="rings.png"
+            ></MovieCard>
+            <MovieCard
+              title="The Good, the Bad and the Ugly"
+              rating={6.9}
+              imageUrl="goodbad.png"
+            ></MovieCard>
+            <MovieCard
+              title="Forrest Gump"
+              rating={6.9}
+              imageUrl="forest.png"
+            ></MovieCard>
+            <MovieCard
+              title="Fight Club"
+              rating={6.9}
+              imageUrl="fight.png"
+            ></MovieCard>
+            <MovieCard
+              title="Saving Private Ryan"
+              rating={6.9}
+              imageUrl="ryan.png"
+            ></MovieCard>
+            <MovieCard
+              title="City of God"
+              rating={6.9}
+              imageUrl="cityofgod.png"
+            ></MovieCard>
+            <MovieCard
+              title="The Green Mile"
+              rating={6.9}
+              imageUrl="greenmile.png"
+            ></MovieCard>
+            <MovieCard
+              title="Life is Beautiful"
+              rating={6.9}
+              imageUrl="lifeis.png"
+            ></MovieCard>
+            <MovieCard
+              title="Terminator 2: Judgement Day"
+              rating={6.9}
+              imageUrl="terminator2.png"
+            ></MovieCard>
+          </div>
+        </div>
+        <Footer></Footer>
       </div>
     </div>
   );
