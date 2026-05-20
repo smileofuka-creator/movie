@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -8,22 +9,32 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import MovieCard from "@/components/ui/MovieCard";
-import {
-  Film,
-  MoveRight,
-  PlayIcon,
-  RemoveFormatting,
-  Search,
-  Star,
-} from "lucide-react";
+import { PlayIcon, Star } from "lucide-react";
 import { Play } from "next/font/google";
 import Image from "next/image";
 import Footer from "@/components/ui/Footer";
 import Upcoming from "@/components/ui/Upcoming";
 import Popular from "@/components/ui/Popular";
 import TopRated from "@/components/ui/TopRated";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [movies, setMovies] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1", {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYWZiMDk4OGVhMWE0YWNhYjMyNTMxNjlhYzVkZmZlOSIsIm5iZiI6MTc3OTI3OTU4My4xMDYsInN1YiI6IjZhMGRhNmRmZDNjOTM0OWQxNTBlMjFhNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.huU2C0p6q7knEvDewSVpmN90dBFf7XPqtvjk1dy_GPg",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setMovies(response.data.results);
+      });
+  }, []);
+  console.log(movies);
   return (
     <div>
       <div>
@@ -89,9 +100,9 @@ export default function Home() {
                    hover:bg-gray-100 transition-all"
           />
         </Carousel>
-        <Upcoming></Upcoming>
-        <Popular></Popular>
-        <TopRated></TopRated>
+        <Upcoming movies={movies}></Upcoming>
+        {/* <Popular></Popular>
+        <TopRated></TopRated> */}
         <Footer></Footer>
       </div>
     </div>

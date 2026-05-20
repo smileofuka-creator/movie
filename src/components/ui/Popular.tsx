@@ -19,7 +19,7 @@ const Popular = () => {
             rating={6.9}
             imageUrl="shawshank.png"
           ></MovieCard>
-          <MovieCard
+          {/* <MovieCard
             title="The Godfather"
             rating={6.9}
             imageUrl="father.png"
@@ -63,7 +63,7 @@ const Popular = () => {
             title="The Silence of the Lambs"
             rating={6.9}
             imageUrl="silence.png"
-          ></MovieCard>
+          ></MovieCard> */}
         </div>
       </div>
     </>

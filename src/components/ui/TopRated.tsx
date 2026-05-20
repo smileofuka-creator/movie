@@ -20,7 +20,7 @@ const TopRated = () => {
             imageUrl="pulp.png"
             className="hover:bg-gray-100 transition-all cursor-pointer"
           ></MovieCard>
-          <MovieCard
+          {/* <MovieCard
             title="The Lord of the Rings: Fellowship of the Kings"
             rating={6.9}
             imageUrl="rings.png"
@@ -64,7 +64,7 @@ const TopRated = () => {
             title="Terminator 2: Judgement Day"
             rating={6.9}
             imageUrl="terminator2.png"
-          ></MovieCard>
+          ></MovieCard> */}
         </div>
       </div>
     </>
