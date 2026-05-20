@@ -80,12 +80,12 @@ export default function Home() {
           </CarouselContent>
           <CarouselPrevious
             className="absolute left-6 top-1/2 -translate-y-1/2 z-20 
-                   w-12 h-12 rounded-full bg-white text-black border-none shadow-md 
+                   w-12 h-12 rounded-full bg-white text-black border-none shadow-md cursor-pointer
                    hover:bg-gray-100 transition-all"
           />
           <CarouselNext
             className="absolute right-6 top-1/2 -translate-y-1/2 z-20 
-                   w-12 h-12 rounded-full bg-white text-black border-none shadow-md 
+                   w-12 h-12 rounded-full bg-white text-black border-none shadow-md cursor-pointer
                    hover:bg-gray-100 transition-all"
           />
         </Carousel>
