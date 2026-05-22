@@ -8,7 +8,7 @@ import {
 import { Card, CardDescription } from "./card";
 import Image from "next/image";
 import { CardContent } from "./card";
-import { PlayIcon, Star } from "lucide-react";
+import { CirclePlay, Star } from "lucide-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -46,11 +46,11 @@ const CustomCarousel = () => {
   }, []);
 
   return (
-    <Carousel className="w-full max-w-[1440px] mx-auto  relative group">
+    <Carousel className="w-full mx-auto  relative group">
       <CarouselContent>
         {movies.map((movie, index: number) => (
           <CarouselItem key={movie.id} className="relative w-full">
-            <div className="p-1">
+            <div className="p-0">
               <Card className="relative overflow-hidden rounded-none border-none">
                 <CardContent className="p-0 relative h-[450px] md:h-[580px] w-full  ">
                   <Image
@@ -77,8 +77,26 @@ const CustomCarousel = () => {
                     <p className="text-xs md:text-sm text-white leading-relaxed font-normal line-clamp-4">
                       {movie.overview}
                     </p>
-                    <button className="flex items-center justify-center gap-2 bg-white text-black font-semibold px-5 py-2.5 rounded-md text-sm w-fit hover:bg-gray-200 transition-colors mt-2 shadow-lg">
-                      <PlayIcon fill="black" size={14} />
+                    <button
+                      className="
+              absolute
+              bottom-5
+              left-5
+              flex
+              items-center
+              gap-2
+              bg-white
+              text-black
+              font-semibold
+              px-5
+              py-2.5
+              rounded-md
+              text-sm
+              hover:bg-gray-200
+              transition
+            "
+                    >
+                      <CirclePlay fill="black" size={18} />
                       Watch Trailer
                     </button>
                   </div>

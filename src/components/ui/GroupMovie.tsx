@@ -5,7 +5,13 @@ import axios from "axios";
 import { MoveRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export const GroupMovie = ({ title }: { title: string }) => {
+export const GroupMovie = ({
+  title,
+  nameTitle,
+}: {
+  nameTitle: string;
+  title: string;
+}) => {
   const [movies, setMovies] = useState<movieType[]>([]);
   useEffect(() => {
     axios
@@ -25,9 +31,9 @@ export const GroupMovie = ({ title }: { title: string }) => {
   }, [title]);
 
   return (
-    <div>
-      <div className="w-full flex justify-between items-center">
-        <h3 className=" text-2xl font-bold text-black mb-6">Upcoming</h3>
+    <div className="w-full">
+      <div className="w-full flex justify-between items-center mb-4">
+        <h3 className=" text-2xl font-bold text-black ">{nameTitle}</h3>
         <button className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors">
           <span>See more</span>
           <MoveRight className="w-[9.33px] h-[9.33px]"></MoveRight>
