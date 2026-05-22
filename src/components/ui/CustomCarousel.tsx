@@ -9,12 +9,29 @@ import { Card, CardDescription } from "./card";
 import Image from "next/image";
 import { CardContent } from "./card";
 import { PlayIcon, Star } from "lucide-react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+interface nowMovie {
+  id: number;
+  title: string;
+  overview: string;
+  vote_average: number;
+  original_language: string;
+  poster_path: string;
+  release_date: string;
+  video: boolean;
+  vote_count: number;
+  popularity: number;
+  backdrop_path: string;
+}
+
 const CustomCarousel = () => {
-  const [movies, setMovies] = useState<movieType[]>([]);
+  const [movies, setMovies] = useState<nowMovie[]>([]);
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1`,
+        `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`,
         {
           headers: {
             Authorization:
@@ -26,7 +43,7 @@ const CustomCarousel = () => {
         console.log(response.data);
         setMovies(response.data.results);
       });
-  }, [title]);
+  }, []);
 
   return (
     <Carousel className="w-full max-w-[1440px] mx-auto  relative group">
@@ -37,10 +54,10 @@ const CustomCarousel = () => {
               <Card className="relative overflow-hidden rounded-none border-none">
                 <CardContent className="p-0 relative h-[450px] md:h-[580px] w-full  ">
                   <Image
-                    src="/Feature.png"
+                    src={`https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path}`}
                     fill
                     className="object-cover object-center"
-                    alt="Feauture"
+                    alt="movie.name"
                   />
 
                   <div className="absolute inset-y-0 left-0 flex flex-col justify-center px-8 md:px-16 max-w-[500px] text-white z-10 space-y-4">
@@ -48,21 +65,17 @@ const CustomCarousel = () => {
                       Now Playing:
                     </p>
                     <h1 className="text-4xl md:text-5xl font-bold tracking-tight mt-1">
-                      Wicked
+                      {movie.title}
                     </h1>
                     <p className="flex gap-1 items-center p-0.5">
                       <Star fill="#FACC15" stroke="#FACC15" size={18} />
                       <span className="text-white font-semibold text-[16px]">
-                        {6.9}
+                        {movie.vote_average}
                       </span>
-                      <span className="text-gray-500">/10</span>
+                      <span className="text-gray-300">/10</span>
                     </p>
                     <p className="text-xs md:text-sm text-white leading-relaxed font-normal line-clamp-4">
-                      Elphaba, a misunderstood young woman because of her green
-                      skin, and Glinda, a popular girl, become friends at Shiz
-                      University in the Land of Oz. After an encounter with the
-                      Wonderful Wizard of Oz, their friendship reaches a
-                      crossroads.{" "}
+                      {movie.overview}
                     </p>
                     <button className="flex items-center justify-center gap-2 bg-white text-black font-semibold px-5 py-2.5 rounded-md text-sm w-fit hover:bg-gray-200 transition-colors mt-2 shadow-lg">
                       <PlayIcon fill="black" size={14} />

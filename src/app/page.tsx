@@ -28,7 +28,7 @@ export interface movieType {
 export default function Home() {
   return (
     <div className="flex justify-center flex-col items-center">
-      {/* <CustomCarousel /> */}
+      <CustomCarousel />
       <div>
         <GroupMovie title="upcoming"></GroupMovie>
         <GroupMovie title="top_rated"></GroupMovie>
