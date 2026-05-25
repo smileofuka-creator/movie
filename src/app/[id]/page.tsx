@@ -1,3 +1,4 @@
+"use client";
 import { GroupMovie } from "@/components/ui/GroupMovie";
 import Footer from "@/components/ui/Footer";
 import { Star } from "lucide-react";
@@ -5,7 +6,30 @@ import { Star } from "lucide-react";
 import Image from "next/image";
 import { CirclePlay } from "lucide-react";
 
+import { useParams } from "next/navigation";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 const Demo = () => {
+  const params = useParams();
+  console.log(params, "params");
+
+  const [movie, setMovie] = useState<movieType[]>();
+  useEffect(() => {
+    axios
+      .get(`https://api.themoviedb.org/3/movie/${params.id}`, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYWZiMDk4OGVhMWE0YWNhYjMyNTMxNjlhYzVkZmZlOSIsIm5iZiI6MTc3OTI3OTU4My4xMDYsInN1YiI6IjZhMGRhNmRmZDNjOTM0OWQxNTBlMjFhNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.huU2C0p6q7knEvDewSVpmN90dBFf7XPqtvjk1dy_GPg",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setMovie(response.data.results);
+      });
+  }, [params.id]);
+  console.log(movie);
+
   return (
     <div className="flex flex-col gap-10 px-10 py-8 ">
       {/* title heseg */}
@@ -35,9 +59,9 @@ const Demo = () => {
       </div>
       {/* 2 zurag */}
       <div className="flex w-full  gap-6">
-        <Image src="/witchsmall.png" alt="small" width={290} height={428} />
+        {/* <Image src="/witchsmall.png" alt="small" width={290} height={428} /> */}
         <div className="">
-          <Image src="/witchMedium.png" alt="medium" width={760} height={428} />
+          {/* <Image src="/witchMedium.png" alt="medium" width={760} height={428} /> */}
           <button
             className="
               absolute
@@ -61,10 +85,17 @@ const Demo = () => {
           </button>
         </div>
       </div>
-      <div>
-        <GroupMovie title="popular"></GroupMovie>
-        <Footer></Footer>
-      </div>
+      {/* category */}
+      <div></div>
+      {/* description */}
+      <p>
+        Elphaba, a misunderstood young woman because of her green skin, and
+        Glinda, a popular girl, become friends at Shiz University in the Land of
+        Oz. After an encounter with the Wonderful Wizard of Oz, their friendship
+        reaches a crossroads.{" "}
+      </p>
+
+      <Footer></Footer>
     </div>
   );
 };
