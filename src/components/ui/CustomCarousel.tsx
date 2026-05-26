@@ -8,9 +8,10 @@ import {
 import { Card, CardDescription } from "./card";
 import Image from "next/image";
 import { CardContent } from "./card";
-import { CirclePlay, Star } from "lucide-react";
+import { CirclePlay, Play, Star } from "lucide-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { PlayCircle } from "lucide-react";
 
 interface nowMovie {
   id: number;
@@ -44,84 +45,60 @@ const CustomCarousel = () => {
         setMovies(response.data.results);
       });
   }, []);
-
   return (
-    <Carousel className="w-full mx-auto  relative group">
+    <Carousel className="w-full mx-auto relative group">
       <CarouselContent>
-        {movies.map((movie, index: number) => (
+        {movies.map((movie) => (
           <CarouselItem key={movie.id} className="relative w-full">
-            <div className="p-0">
-              <Card className="relative overflow-hidden rounded-none border-none">
-                <CardContent className="p-0 relative h-[450px] md:h-[580px] w-full  ">
-                  <Image
-                    src={`https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path}`}
-                    fill
-                    className="object-cover object-center"
-                    alt="movie.name"
-                  />
+            <Card className="relative overflow-hidden rounded-none border-none">
+              <CardContent className="p-0 relative h-[450px] md:h-[580px] w-full">
+                <Image
+                  src={`https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path}`}
+                  fill
+                  className="object-cover object-center"
+                  alt={movie.title}
+                />
 
-                  <div className="absolute inset-y-0 left-0 flex flex-col justify-center px-8 md:px-16 max-w-[500px] text-white z-10 space-y-4">
-                    <p className="text-sm md:text-base text-white font-medium">
-                      Now Playing:
-                    </p>
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-tight mt-1">
-                      {movie.title}
-                    </h1>
-                    <p className="flex gap-1 items-center p-0.5">
-                      <Star fill="#FACC15" stroke="#FACC15" size={18} />
-                      <span className="text-white font-semibold text-[16px]">
-                        {movie.vote_average}
-                      </span>
-                      <span className="text-gray-300">/10</span>
-                    </p>
-                    <p className="text-xs md:text-sm text-white leading-relaxed font-normal line-clamp-4">
-                      {movie.overview}
-                    </p>
-                    <button
-                      className="
-              absolute
-              bottom-5
-              left-5
-              flex
-              items-center
-              gap-2
-              bg-white
-              text-black
-              font-semibold
-              px-5
-              py-2.5
-              rounded-md
-              text-sm
-              hover:bg-gray-200
-              transition
-            "
-                    >
-                      <CirclePlay fill="black" size={18} />
-                      Watch Trailer
-                    </button>
-                  </div>
-                  <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-                    <span className="w-2 h-2 rounded-full bg-white"></span>
-                    <span className="w-2 h-2 rounded-full bg-white/40"></span>
-                    <span className="w-2 h-2 rounded-full bg-white/40"></span>
-                  </div>
-                </CardContent>
-                <CardDescription></CardDescription>
-              </Card>
-            </div>
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent z-[1]" />
+
+                {/* Текст хэсэг */}
+                <div className="absolute inset-y-0 left-0 flex flex-col justify-center px-8 md:px-16 w-[90%] sm:w-[60%] md:max-w-[500px] text-white z-10 space-y-4">
+                  <p className="text-sm md:text-base font-medium">
+                    Now Playing:
+                  </p>
+                  <h1 className="text-3xl md:text-5xl font-bold tracking-tight">
+                    {movie.title}
+                  </h1>
+                  <p className="flex gap-1 items-center">
+                    <Star fill="#FACC15" stroke="#FACC15" size={18} />
+                    <span className="font-semibold text-[16px]">
+                      {movie.vote_average}
+                    </span>
+                    <span className="text-gray-300">/10</span>
+                  </p>
+                  <p className="text-xs md:text-sm leading-relaxed line-clamp-3">
+                    {movie.overview}
+                  </p>
+                  <button className="flex items-center gap-2 bg-white text-black font-semibold px-5 py-2.5 rounded-md text-sm hover:bg-gray-200 transition w-fit">
+                    <Play fill="black" size={18} />
+                    Watch Trailer
+                  </button>
+                </div>
+
+                {/* Dots */}
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                  <span className="w-2 h-2 rounded-full bg-white" />
+                  <span className="w-2 h-2 rounded-full bg-white/40" />
+                  <span className="w-2 h-2 rounded-full bg-white/40" />
+                </div>
+              </CardContent>
+            </Card>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious
-        className="absolute left-6 top-1/2 -translate-y-1/2 z-20 
-                   w-12 h-12 rounded-full bg-white text-black border-none shadow-md cursor-pointer
-                   hover:bg-gray-100 transition-all"
-      />
-      <CarouselNext
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 
-                   w-12 h-12 rounded-full bg-white text-black border-none shadow-md cursor-pointer
-                   hover:bg-gray-100 transition-all"
-      />
+      <CarouselPrevious className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white text-black border-none shadow-md cursor-pointer hover:bg-gray-100 transition-all" />
+      <CarouselNext className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white text-black border-none shadow-md cursor-pointer hover:bg-gray-100 transition-all" />
     </Carousel>
   );
 };
