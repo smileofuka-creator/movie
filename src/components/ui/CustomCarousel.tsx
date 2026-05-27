@@ -86,12 +86,12 @@ const CustomCarousel = () => {
                   </button>
                 </div>
 
-                {/* Dots */}
+                {/* Dots
                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
                   <span className="w-2 h-2 rounded-full bg-white" />
                   <span className="w-2 h-2 rounded-full bg-white/40" />
                   <span className="w-2 h-2 rounded-full bg-white/40" />
-                </div>
+                </div> */}
               </CardContent>
             </Card>
           </CarouselItem>

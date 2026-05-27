@@ -1,12 +1,13 @@
 "use client";
-import { GroupMovie } from "@/components/ui/GroupMovie";
+
 import Footer from "@/components/ui/Footer";
 import Image from "next/image";
-import { Star } from "lucide-react";
+
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Play, MoveRight } from "lucide-react";
+import { Play, MoveRight, Star } from "lucide-react";
+import Navigation from "@/components/ui/Navigation";
 
 interface Genre {
   id: number;
@@ -65,6 +66,7 @@ const Demo = () => {
 
   return (
     <div className="flex flex-col gap-10 px-10 py-8">
+      <Navigation></Navigation>
       <div className="mx-auto w-full max-w-[1080px]">
         {/* title section */}
         <div className="flex items-start justify-between">
@@ -79,7 +81,7 @@ const Demo = () => {
           </div>
 
           <div className="flex flex-col items-start">
-            <p className="text-sm text-gray-500">Rating</p>
+            <p className="text-sm text-black">Rating</p>
             <div className="flex items-center gap-2">
               <Star fill="#FACC15" stroke="#FACC15" size={18} />
               <div className="flex flex-col">
@@ -148,14 +150,14 @@ const Demo = () => {
             <div className="border-b" />
           </div>
         </div>
-      </div>
-      {/* More movies */}
-      <div className="w-full flex justify-between items-center mb-4">
-        <h3 className=" text-2xl font-bold text-black ">More</h3>
-        <button className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors">
-          <span>See more</span>
-          <MoveRight className="w-[9.33px] h-[9.33px]"></MoveRight>
-        </button>
+        {/* More movies */}
+        <div className="w-full flex justify-between items-center mb-4">
+          <h3 className=" text-2xl font-bold text-black ">More</h3>
+          <button className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors">
+            <span>See more</span>
+            <MoveRight className="w-[9.33px] h-[9.33px]"></MoveRight>
+          </button>
+        </div>
       </div>
 
       <Footer />

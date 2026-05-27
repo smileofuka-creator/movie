@@ -4,6 +4,7 @@ import MovieCard from "@/components/ui/MovieCard";
 import axios from "axios";
 import { MoveRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export const GroupMovie = ({
   title,
@@ -12,7 +13,11 @@ export const GroupMovie = ({
   nameTitle: string;
   title: string;
 }) => {
+  const router = useRouter();
   const [movies, setMovies] = useState<movieType[]>([]);
+  const pushToSeeMorePage = () => {
+    router.push("/upcoming");
+  };
   useEffect(() => {
     axios
       .get(
