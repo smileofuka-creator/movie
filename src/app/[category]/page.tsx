@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import type { movieType } from "../page";
 import MovieCard from "@/components/ui/MovieCard";
-import Router, { useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import Navigation from "@/components/ui/Navigation";
 import {
   Pagination,
@@ -21,7 +21,7 @@ const Upcoming = () => {
 
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState<movieType[]>([]);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const nextPage = () => {
     setPage(page + 1);
@@ -47,18 +47,16 @@ const Upcoming = () => {
         setIsLoading(false);
       });
   }, [page, params.category]);
-
+  console.log(totalPages);
   if (isLoading) {
     return (
       <div className="w-full flex items-center flex-col gap-4">
-        {/* Header */}
         <div className="w-full flex justify-between items-center mb-4">
           <Skeleton className="w-[120px] h-[32px] rounded-md" />
         </div>
 
-        {/* Movie cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center w-full">
-          {Array.from({ length: 10 }).map((_, index) => (
+          {Array.from({ length: 20 }).map((_, index) => (
             <div key={index} className="flex flex-col gap-2">
               <Skeleton className="w-[230px] h-[320px] rounded-xl" />
               <Skeleton className="w-[180px] h-[20px] rounded-md" />
@@ -67,7 +65,6 @@ const Upcoming = () => {
           ))}
         </div>
 
-        {/* Pagination */}
         <div className="flex justify-center mt-8 gap-2">
           {Array.from({ length: 5 }).map((_, index) => (
             <Skeleton key={index} className="w-[40px] h-[40px] rounded-md" />
@@ -112,13 +109,15 @@ const Upcoming = () => {
               <PaginationPrevious href="#" />
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink
-                onClick={() => setPage(page - 1)}
-                href="#"
-                isActive
-              >
-                {page}
-              </PaginationLink>
+              {page > 1 && (
+                <PaginationLink
+                  onClick={() => setPage(page - 1)}
+                  href="#"
+                  isActive
+                >
+                  {page - 1}
+                </PaginationLink>
+              )}
             </PaginationItem>
             <PaginationItem>
               <PaginationLink onClick={() => setPage(page)} href="#">
@@ -127,7 +126,7 @@ const Upcoming = () => {
             </PaginationItem>
             <PaginationItem>
               <PaginationLink onClick={() => setPage(page + 1)} href="#">
-                {page}
+                {page + 1}
               </PaginationLink>
             </PaginationItem>
 
@@ -149,11 +148,8 @@ const Upcoming = () => {
               <PaginationEllipsis />
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink
-                onClick={() => setPage(movies?.total_pages)}
-                href="#"
-              >
-                {movies?.total_pages}
+              <PaginationLink onClick={() => setPage(totalPages)} href="#">
+                {totalPages}
               </PaginationLink>
             </PaginationItem>
             <PaginationItem>

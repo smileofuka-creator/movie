@@ -5,13 +5,27 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Card, CardDescription } from "./card";
+import { Card } from "./card";
 import Image from "next/image";
 import { CardContent } from "./card";
-import { CirclePlay, Play, Star } from "lucide-react";
+import { Play, Star } from "lucide-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { PlayCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Field, FieldGroup } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import ReactPlayer from "react-player";
 
 interface nowMovie {
   id: number;
@@ -29,6 +43,10 @@ interface nowMovie {
 
 const CustomCarousel = () => {
   const [movies, setMovies] = useState<nowMovie[]>([]);
+  const [watchkey, setWatchkey] = useState("");
+  const [IsTrailerShowed, setIsTrailerShowed] = useState(false);
+
+  const handleOnClick = () => setIsTrailerShowed(!IsTrailerShowed);
   useEffect(() => {
     axios
       .get(
@@ -43,6 +61,7 @@ const CustomCarousel = () => {
       .then((response) => {
         console.log(response.data);
         setMovies(response.data.results);
+        setWatchkey(response.data.results[1].key);
       });
   }, []);
   return (
@@ -52,6 +71,28 @@ const CustomCarousel = () => {
           <CarouselItem key={movie.id} className="relative w-full">
             <Card className="relative overflow-hidden rounded-none border-none">
               <CardContent className="p-0 relative h-[450px] md:h-[580px] w-full">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button
+                      onClick={() => handleOnClick(movie.id)}
+                      className="flex items-center gap-2 bg-white text-black font-semibold px-5 py-2.5 rounded-md text-sm hover:bg-gray-200 transition w-fit"
+                    >
+                      <Play fill="black" size={18} />
+                      Watch Trailer
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-sm">
+                    <ReactPlayer
+                      src={`https://www.youtube.com/watch?v=${watchkey}`}
+                      width={997}
+                      height={561}
+                      // top-241px
+                      // left-222px
+                      volume={1}
+                    />
+                  </DialogContent>
+                </Dialog>
+
                 <Image
                   src={`https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path}`}
                   fill
@@ -80,10 +121,6 @@ const CustomCarousel = () => {
                   <p className="text-xs md:text-sm leading-relaxed line-clamp-3">
                     {movie.overview}
                   </p>
-                  <button className="flex items-center gap-2 bg-white text-black font-semibold px-5 py-2.5 rounded-md text-sm hover:bg-gray-200 transition w-fit">
-                    <Play fill="black" size={18} />
-                    Watch Trailer
-                  </button>
                 </div>
 
                 {/* Dots
@@ -102,5 +139,67 @@ const CustomCarousel = () => {
     </Carousel>
   );
 };
+
+// const CustomCarousel = () => {
+//   const [movies, setMovies] = useState<nowMovie[]>([]);
+//   const [watchkey, setWatchkey] = useState("");
+
+//   const handleTrailerClick = async (movieId: number) => {
+//     const res = await axios.get(
+//       `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
+//       { headers: { Authorization: "Bearer ..." } },
+//     );
+//     const trailer = res.data.results.find((v: any) => v.type === "Trailer");
+//     setWatchkey(trailer?.key || "");
+//   };
+
+//   // ... useEffect (зөвхөн movies fetch)
+
+//   return (
+//     <Carousel>
+//       <CarouselContent>
+//         {movies.map((movie) => (
+//           <CarouselItem key={movie.id}>
+//             <Card>
+//               <CardContent className="relative h-[450px]">
+//                 <Image
+//                   src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+//                   fill
+//                   className="object-cover"
+//                   alt={movie.title}
+//                 />
+//                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent z-[1]" />
+
+//                 <div className="absolute inset-y-0 left-0 flex flex-col justify-center px-16 z-10 space-y-4 text-white">
+//                   <h1>{movie.title}</h1>
+//                   {/* ... */}
+
+//                   <Dialog>
+//                     <DialogTrigger asChild>
+//                       <button
+//                         onClick={() => handleTrailerClick(movie.id)}
+//                         className="flex items-center gap-2 bg-white text-black ..."
+//                       >
+//                         <Play fill="black" size={18} />
+//                         Watch Trailer
+//                       </button>
+//                     </DialogTrigger>
+//                     <DialogContent>
+//                       <ReactPlayer
+//                         url={`https://www.youtube.com/watch?v=${watchkey}`}
+//                         width="100%"
+//                         height="100%"
+//                       />
+//                     </DialogContent>
+//                   </Dialog>
+//                 </div>
+//               </CardContent>
+//             </Card>
+//           </CarouselItem>
+//         ))}
+//       </CarouselContent>
+//     </Carousel>
+//   );
+// };
 
 export default CustomCarousel;

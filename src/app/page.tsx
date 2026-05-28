@@ -1,46 +1,3 @@
-// "use client";
-
-// import CustomCarousel from "@/components/ui/CustomCarousel";
-
-// import Footer from "@/components/ui/Footer";
-
-// import { GroupMovie } from "@/components/ui/GroupMovie";
-// import Navigation from "@/components/ui/Navigation";
-
-// export interface movieType {
-//   title: string;
-//   adult: boolean;
-//   backdrop_path: string;
-//   first_air_date: string;
-//   genre_ids: number[];
-//   id: number;
-//   name: string;
-//   origin_country: [string];
-//   original_language: string;
-//   original_name: string;
-//   overview: string;
-//   popularity: number;
-//   poster_path: string;
-//   softcore: boolean;
-//   vote_average: number;
-//   vote_count: number;
-// }
-
-// export default function Home() {
-//   return (
-//     <div className="flex justify-center flex-col items-center">
-//       <Navigation></Navigation>
-//       <CustomCarousel />
-//       <div className="gap-13">
-//         <GroupMovie title="upcoming" nameTitle="Upcoming"></GroupMovie>
-//         <GroupMovie title="top_rated" nameTitle="Top rated"></GroupMovie>
-//         <GroupMovie title="popular" nameTitle="Popular"></GroupMovie>
-//         <Footer></Footer>
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
 
 import CustomCarousel from "@/components/ui/CustomCarousel";
@@ -69,12 +26,11 @@ export interface movieType {
   vote_count: number;
 }
 
-// Skeleton for GroupMovie section
 const GroupMovieSkeleton = () => (
   <div className="w-full flex flex-col gap-4 mb-8">
     {/* Title */}
     <Skeleton className="w-[150px] h-[28px] rounded-md" />
-    {/* Movie cards row */}
+    {/* Movie cardin heseg */}
     <div className="flex gap-4 overflow-hidden">
       {Array.from({ length: 5 }).map((_, index) => (
         <div key={index} className="flex flex-col gap-2 flex-shrink-0">
@@ -87,7 +43,6 @@ const GroupMovieSkeleton = () => (
   </div>
 );
 
-// Skeleton for Carousel
 const CarouselSkeleton = () => (
   <Skeleton className="w-full h-[500px] rounded-2xl mb-8" />
 );
@@ -111,6 +66,7 @@ export default function Home() {
           <CarouselSkeleton />
 
           {/* GroupMovie skeleton x3 */}
+
           <GroupMovieSkeleton />
           <GroupMovieSkeleton />
           <GroupMovieSkeleton />

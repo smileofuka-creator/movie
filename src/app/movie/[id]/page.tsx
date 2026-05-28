@@ -8,13 +8,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Play, MoveRight, Star } from "lucide-react";
 import Navigation from "@/components/ui/Navigation";
+import Description from "../components/Description";
+import { MoreMovie } from "../components/MoreMovies";
+import ReactPlayer from "react-player";
 
 interface Genre {
   id: number;
   name: string;
 }
 
-interface Movie {
+interface MovieDetial {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: null;
@@ -48,10 +51,13 @@ const Demo = () => {
   const params = useParams();
   console.log(params, "params");
 
-  const [movie, setMovie] = useState<any>();
+  const [movie, setMovie] = useState<MovieDetial>();
+  const [watchkey, setWatchkey] = useState("");
+  const [IsTrailerShowed, setIsTrailerShowed] = useState(false);
+
   useEffect(() => {
     axios
-      .get(`https://api.themoviedb.org/3/movie/${params.id}`, {
+      .get(`https://api.themoviedb.org/3/movie/${params.id}?language=en-US`, {
         headers: {
           Authorization:
             "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYWZiMDk4OGVhMWE0YWNhYjMyNTMxNjlhYzVkZmZlOSIsIm5iZiI6MTc3OTI3OTU4My4xMDYsInN1YiI6IjZhMGRhNmRmZDNjOTM0OWQxNTBlMjFhNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.huU2C0p6q7knEvDewSVpmN90dBFf7XPqtvjk1dy_GPg",
@@ -61,8 +67,25 @@ const Demo = () => {
         console.log(response.data);
         setMovie(response.data);
       });
+
+    axios
+      .get(
+        `https://api.themoviedb.org/3//movie/${params.id}/videos?language=en-US`,
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYWZiMDk4OGVhMWE0YWNhYjMyNTMxNjlhYzVkZmZlOSIsIm5iZiI6MTc3OTI3OTU4My4xMDYsInN1YiI6IjZhMGRhNmRmZDNjOTM0OWQxNTBlMjFhNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.huU2C0p6q7knEvDewSVpmN90dBFf7XPqtvjk1dy_GPg",
+          },
+        },
+      )
+      .then((response) => {
+        console.log(response, "data");
+        setWatchkey(response.data.results[1].key);
+      });
   }, [params.id]);
   console.log(movie);
+
+  const handleOnClick = () => setIsTrailerShowed(!IsTrailerShowed);
 
   return (
     <div className="flex flex-col gap-10 px-10 py-8">
@@ -106,14 +129,35 @@ const Demo = () => {
             width={290}
             height={428}
             className="rounded-md object-cover"
-            alt={movie?.name}
+            alt={movie?.title || "movie.image"}
           />
 
-          <div className="w-[760px] h-[428px]">
-            <button className="absolute bottom-5 left-5 flex items-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-gray-200">
-              <Play />
-              Play trailer
-            </button>
+          <div className="relative w-[760px] h-[428px]">
+            {IsTrailerShowed ? (
+              <ReactPlayer
+                src={`https://www.youtube.com/watch?v=${watchkey}`}
+                width={760}
+                height={428}
+                volume={1}
+              />
+            ) : (
+              <Image
+                src={`https://image.tmdb.org/t/p/w300/${movie?.backdrop_path}`}
+                width={760}
+                height={428}
+                alt={movie?.title || "movie.image"}
+              />
+            )}
+
+            {!IsTrailerShowed && (
+              <button
+                onClick={handleOnClick}
+                className="absolute bottom-5 left-5 flex items-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-gray-200"
+              >
+                <Play />
+                Play trailer
+              </button>
+            )}
           </div>
         </div>
 
@@ -126,14 +170,19 @@ const Demo = () => {
           ))}
         </div>
 
+        <Description movie={movie} movieId={params.id} />
+
         {/* description  heseg */}
-        <div className="mt-6 flex flex-col gap-8">
+
+        {/* <div className="mt-6 flex flex-col gap-8">
           <p>{movie?.overview}</p>
 
           <div className="flex flex-col gap-4">
             <div className="flex gap-[53px]">
               <h3 className="w-20 text-[16px] font-bold">Director</h3>
               <p>Jon M. Chu</p>
+              https://api.themoviedb.org/3/movie/${params.id}
+              credits?language=en-US
             </div>
             <div className="border-b" />
 
@@ -149,15 +198,18 @@ const Demo = () => {
             </div>
             <div className="border-b" />
           </div>
-        </div>
+        </div> */}
+
         {/* More movies */}
-        <div className="w-full flex justify-between items-center mb-4">
+        <MoreMovie title="similar" nameTitle="More Movies" />
+
+        {/* <div className="w-full flex justify-between items-center mb-4">
           <h3 className=" text-2xl font-bold text-black ">More</h3>
           <button className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors">
             <span>See more</span>
             <MoveRight className="w-[9.33px] h-[9.33px]"></MoveRight>
           </button>
-        </div>
+        </div> */}
       </div>
 
       <Footer />
