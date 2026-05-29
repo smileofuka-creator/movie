@@ -1,10 +1,11 @@
 import { Film, Search, Moon } from "lucide-react";
+import Link from "next/link";
 
 const Navigation = () => {
   return (
     <nav className="bg-[#FFFFFF] w-full bg-white flex justify-center">
       <div className="w-full max-w-[1280px] h-[60px] px-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <div className="text-[#4338CA] p-2 rounded-md">
             <Film className="bg-white w-5 h-5" />
           </div>
@@ -12,7 +13,7 @@ const Navigation = () => {
           <span className="text-[#4338CA] italic font-bold text-[16px]">
             Movie Z
           </span>
-        </div>
+        </Link>
 
         <div className="w-[480px] h-[36px] gap-3 flex items-center">
           <button className="border px-4 py-2 rounded-md text-sm hover:bg-gray-100">

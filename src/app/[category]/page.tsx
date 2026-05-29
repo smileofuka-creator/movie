@@ -97,8 +97,8 @@ const Upcoming = () => {
           {params.category}
         </h3>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center">
-        {movies?.map((movie) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 ">
+        {movies?.slice(0, 10).map((movie) => {
           return <MovieCard movie={movie} key={movie.id} />;
         })}
       </div>

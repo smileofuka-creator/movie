@@ -16,7 +16,7 @@ export const GroupMovie = ({
   const router = useRouter();
   const [movies, setMovies] = useState<movieType[]>([]);
   const pushToSeeMorePage = () => {
-    router.push(title);
+    router.push("/upcoming");
   };
   useEffect(() => {
     axios
@@ -39,15 +39,12 @@ export const GroupMovie = ({
     <div className="w-full">
       <div className="w-full flex justify-between items-center mb-4">
         <h3 className=" text-2xl font-bold text-black     ">{nameTitle}</h3>
-        <button
-          onClick={pushToSeeMorePage}
-          className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors"
-        >
+        <button className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors">
           <span>See more</span>
           <MoveRight className="w-[9.33px] h-[9.33px]"></MoveRight>
         </button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 ">
         {movies.map((movie) => {
           return <MovieCard movie={movie} key={movie.id} />;
         })}

@@ -6,14 +6,14 @@ import Link from "next/link";
 
 const MovieCard = ({ movie }: { movie: movieType }) => {
   return (
-    <Link href={`/movie/${movie.id}`}>
-      <Card className="w-[230px] bg-[#F4F4F5] overflow-hidden ">
+    <Link href={`/movie/${movie.id} className="w-full"`}>
+      <Card className="w-full bg-[#F4F4F5] overflow-hidden ">
         <div className="relative w-full h-[340px] overflow-hidden">
           <Image
             src={`https://image.tmdb.org/t/p/w300/${movie.poster_path || movie.backdrop_path}`}
             alt={movie.title || movie.name}
             fill
-            sizes="230px"
+            sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 20vw"
             className="object-cover transition-all duration-300 hover:opacity-90 
         "
           />

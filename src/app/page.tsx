@@ -57,7 +57,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex justify-center flex-col items-center">
+    <div className="flex  flex-col ">
       <Navigation />
 
       {isLoading ? (

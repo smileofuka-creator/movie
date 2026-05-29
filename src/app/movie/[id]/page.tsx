@@ -12,6 +12,9 @@ import Description from "../components/Description";
 import { MoreMovie } from "../components/MoreMovies";
 import ReactPlayer from "react-player";
 
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+
 interface Genre {
   id: number;
   name: string;
@@ -148,7 +151,6 @@ const Demo = () => {
                 alt={movie?.title || "movie.image"}
               />
             )}
-
             {!IsTrailerShowed && (
               <button
                 onClick={handleOnClick}
