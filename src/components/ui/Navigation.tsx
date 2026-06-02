@@ -1,7 +1,25 @@
+"use client";
 import { Film, Search, Moon } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const Navigation = () => {
+  const searchParams = useSearchParams();
+  const search = searchParams.get("movie");
+  const router = useRouter();
+
+  const [value, setValue] = useState<string>("");
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setValue(value);
+  };
+
+  const handleClick = () => {
+    router.push(`/search?movie=${value}`);
+  };
+
   return (
     <nav className="bg-[#FFFFFF] w-full bg-white flex justify-center">
       <div className="w-full max-w-[1280px] h-[60px] px-4 flex items-center justify-between">
@@ -21,9 +39,13 @@ const Navigation = () => {
           </button>
 
           <div className="relative">
-            <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+            <Search
+              className="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
+              onClick={handleClick}
+            />
 
             <input
+              onChange={handleChange}
               type="text"
               placeholder="Search..."
               className="w-[300px] border rounded-md py-2 pl-10 pr-4 outline-none focus:ring-2 focus:ring-indigo-500"

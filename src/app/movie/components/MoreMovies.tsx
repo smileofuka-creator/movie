@@ -18,7 +18,7 @@ export const MoreMovie = ({
   const [movies, setMovies] = useState<movieType[]>([]);
   const params = useParams();
   const pushToSeeMorePage = () => {
-    router.push("/upcoming");
+    router.push(`/movie/${params.id}/similar`);
   };
   useEffect(() => {
     axios
@@ -38,7 +38,10 @@ export const MoreMovie = ({
     <div className="w-full flex flex-col">
       <div className="w-full flex justify-between items-center mb-4">
         <h3 className=" text-2xl font-bold text-black     ">More like this</h3>
-        <button className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors">
+        <button
+          onClick={pushToSeeMorePage}
+          className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors"
+        >
           <span>See more</span>
           <MoveRight className="w-[9.33px] h-[9.33px]"></MoveRight>
         </button>
