@@ -83,7 +83,7 @@ const Demo = () => {
       )
       .then((response) => {
         console.log(response, "data");
-        setWatchkey(response.data.results[1].key);
+        setWatchkey(response.data.results[1]);
       });
   }, [params.id]);
   console.log(movie);

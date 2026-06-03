@@ -51,36 +51,31 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Бүх контент ачааллагдсаны дараа false болгох
     const timer = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="flex  flex-col ">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
 
-      {isLoading ? (
-        <div className="w-full px-4">
-          {/* Carousel skeleton */}
-          <CarouselSkeleton />
-
-          {/* GroupMovie skeleton x3 */}
-
-          <GroupMovieSkeleton />
-          <GroupMovieSkeleton />
-          <GroupMovieSkeleton />
-        </div>
-      ) : (
-        <>
-          <CustomCarousel />
-          <div className="gap-13">
+      <main className="flex-1 w-full max-w-[1280px] mx-auto px-6 py-8">
+        {isLoading ? (
+          <div className="flex flex-col gap-8">
+            <CarouselSkeleton />
+            <GroupMovieSkeleton />
+            <GroupMovieSkeleton />
+            <GroupMovieSkeleton />
+          </div>
+        ) : (
+          <div className="flex flex-col gap-10">
+            <CustomCarousel />
             <GroupMovie title="upcoming" nameTitle="Upcoming" />
             <GroupMovie title="top_rated" nameTitle="Top rated" />
             <GroupMovie title="popular" nameTitle="Popular" />
           </div>
-        </>
-      )}
+        )}
+      </main>
 
       <Footer />
     </div>
