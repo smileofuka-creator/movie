@@ -6,14 +6,11 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Play, MoveRight, Star } from "lucide-react";
+import { Play, Star } from "lucide-react";
 import Navigation from "@/components/ui/Navigation";
 import Description from "../components/Description";
 import { MoreMovie } from "../components/MoreMovies";
 import ReactPlayer from "react-player";
-
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 interface Genre {
   id: number;

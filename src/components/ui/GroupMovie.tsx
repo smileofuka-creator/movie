@@ -15,42 +15,49 @@ export const GroupMovie = ({
 }) => {
   const router = useRouter();
   const [movies, setMovies] = useState<movieType[]>([]);
+
   const pushToSeeMorePage = () => {
     router.push(`/${title}`);
   };
+
   useEffect(() => {
     axios
       .get(
         `https://api.themoviedb.org/3/movie/${title}?language=en-US&page=1`,
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYWZiMDk4OGVhMWE0YWNhYjMyNTMxNjlhYzVkZmZlOSIsIm5iZiI6MTc3OTI3OTU4My4xMDYsInN1YiI6IjZhMGRhNmRmZDNjOTM0OWQxNTBlMjFhNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.huU2C0p6q7knEvDewSVpmN90dBFf7XPqtvjk1dy_GPg",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
           },
         },
       )
       .then((response) => {
-        console.log(response.data);
-        setMovies(response.data.results);
+        setMovies(response.data.results.slice(0, 10));
       });
   }, [title]);
 
   return (
-    <div className="w-full">
-      <div className="w-full flex justify-between items-center mb-4">
-        <h3 className=" text-2xl font-bold text-black     ">{nameTitle}</h3>
+    <div className="w-full flex flex-col gap-4 mb-8">
+      {" "}
+      <div className="w-full flex justify-between items-center">
+        <h3 className="w-[150px] h-[28px] text-2xl font-bold dark:text-white">
+          {nameTitle}
+        </h3>
         <button
           onClick={pushToSeeMorePage}
-          className="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-gray-600 transition-colors"
+          className="flex items-center gap-2 cursor-pointer text-sm font-medium text-indigo-500 hover:text-indigo-700 transition-colors"
         >
           <span>See more</span>
-          <MoveRight className="w-[9.33px] h-[9.33px]"></MoveRight>
+          <MoveRight className="w-4 h-4" />
         </button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 ">
-        {movies.map((movie) => {
-          return <MovieCard movie={movie} key={movie.id} />;
-        })}
+      <div className="flex gap-4 overflow-hidden">
+        {" "}
+        {movies.map((movie) => (
+          <div key={movie.id} className="flex-shrink-0 w-[200px]">
+            {" "}
+            <MovieCard movie={movie} />
+          </div>
+        ))}
       </div>
     </div>
   );

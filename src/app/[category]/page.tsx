@@ -15,6 +15,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
+import Footer from "@/components/ui/Footer";
 
 const Upcoming = () => {
   const params = useParams();
@@ -23,6 +24,7 @@ const Upcoming = () => {
   const [movies, setMovies] = useState<movieType[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+
   const nextPage = () => {
     setPage(page + 1);
   };
@@ -39,7 +41,6 @@ const Upcoming = () => {
         },
       )
       .then((response) => {
-        console.log(response.data.results);
         setMovies(response.data.results);
         setTotalPages(response.data.total_pages);
       })
@@ -47,144 +48,82 @@ const Upcoming = () => {
         setIsLoading(false);
       });
   }, [page, params.category]);
-  console.log(totalPages);
+
   if (isLoading) {
     return (
-      <div className="w-full flex items-center flex-col gap-4">
-        <div className="w-full flex justify-between items-center mb-4">
-          <Skeleton className="w-[120px] h-[32px] rounded-md" />
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center w-full">
-          {Array.from({ length: 20 }).map((_, index) => (
-            <div key={index} className="flex flex-col gap-2">
-              <Skeleton className="w-[230px] h-[320px] rounded-xl" />
-              <Skeleton className="w-[180px] h-[20px] rounded-md" />
-              <Skeleton className="w-[100px] h-[16px] rounded-md" />
-            </div>
-          ))}
-        </div>
-
-        <div className="flex justify-center mt-8 gap-2">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <Skeleton key={index} className="w-[40px] h-[40px] rounded-md" />
-          ))}
+      <div className="flex flex-col gap-10 px-10 py-8">
+        <div className="mx-auto w-full max-w-[1080px]">
+          <Skeleton className="w-[200px] h-[32px] rounded-md mb-6" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {Array.from({ length: 20 }).map((_, index) => (
+              <div key={index} className="flex flex-col gap-2">
+                <Skeleton className="w-full h-[280px] rounded-xl" />
+                <Skeleton className="w-[80%] h-[20px] rounded-md" />
+                <Skeleton className="w-[50%] h-[16px] rounded-md" />
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-center mt-8 gap-2">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <Skeleton key={index} className="w-[40px] h-[40px] rounded-md" />
+            ))}
+          </div>
         </div>
       </div>
-
-      // <div className="w-full flex items-center flex-col gap-4">
-      //   <div className="w-full flex justify-between items-center mb-4">
-      //     <Skeleton className="w-[40px]" />
-      //   </div>
-      //   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center">
-      //     {Array.from({ length: 20 }).map((_, index) => {
-      //       return (
-      //         <Skeleton
-      //           key={index + Math.random()}
-      //           className="w-[230px] h-[400px]"
-      //         />
-      //       );
-      //     })}
-      //   </div>
-      // </div>
     );
   }
+
   return (
-    <div className="w-full">
-      <Navigation></Navigation>
-      <div className="w-full flex justify-between items-center mb-4">
-        <h3 className=" text-2xl font-bold text-black     ">
-          {params.category}
-        </h3>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 ">
-        {movies?.slice(0, 10).map((movie) => {
-          return <MovieCard movie={movie} key={movie.id} />;
-        })}
-      </div>
-      <div className="flex justify-center mt-8">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              {page > 1 && (
-                <PaginationLink
-                  onClick={() => setPage(page - 1)}
-                  href="#"
-                  isActive
-                >
-                  {page - 1}
+    <div className="flex flex-col gap-10 px-10 py-8">
+      <Navigation />
+      <div className="mx-auto w-full max-w-[1080px]">
+        <h1 className="text-2xl font-bold mb-6">{params.category}</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          {movies.map((movie) => (
+            <MovieCard movie={movie} key={movie.id} />
+          ))}
+        </div>
+        <div className="flex justify-center mt-8">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                {page > 1 && (
+                  <PaginationLink onClick={() => setPage(page - 1)} href="#">
+                    {page - 1}
+                  </PaginationLink>
+                )}
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink onClick={() => setPage(page)} href="#" isActive>
+                  {page}
                 </PaginationLink>
-              )}
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => setPage(page)} href="#">
-                {page}
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => setPage(page + 1)} href="#">
-                {page + 1}
-              </PaginationLink>
-            </PaginationItem>
-
-            {/* {Array.from({ length: movies?.total_pages }).map((_, index) => {
-                          return (
-                            <PaginationItem key={index + Math.random()}>
-                              <PaginationLink
-                                onClick={() => setPage(index + 1)}
-                                href="#"
-                                isActive={page === index + 1}
-                              >
-                                {index + 1}
-                              </PaginationLink>
-                            </PaginationItem>
-                          );
-                        })} */}
-
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => setPage(totalPages)} href="#">
-                {totalPages}
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext onClick={nextPage} href="#" />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink onClick={() => setPage(page + 1)} href="#">
+                  {page + 1}
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink onClick={() => setPage(totalPages)} href="#">
+                  {totalPages}
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext onClick={nextPage} href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };
-export default Upcoming;
 
-// <PaginationLink
-//               onClick={() => setPage(1)}
-//               href="#"
-//               isActive={page === 1}
-//             >
-//               1
-//             </PaginationLink>
-//           </PaginationItem>
-//           <PaginationItem>
-//             <PaginationLink
-//               onClick={() => setPage(2)}
-//               href="#"
-//               isActive={page === 2}
-//             >
-//               2
-//             </PaginationLink>
-//           </PaginationItem>
-//           <PaginationItem>
-//             <PaginationLink
-//               onClick={() => setPage(3)}
-//               href="#"
-//               isActive={page === 3}
-//             >
-//               3
-//             </PaginationLink>
+export default Upcoming;

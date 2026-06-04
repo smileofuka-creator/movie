@@ -28,8 +28,15 @@ export default function RootLayout({
   return (
     // src/app/layout.tsx
     <html lang="en" suppressHydrationWarning>
+      {" "}
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
