@@ -102,7 +102,9 @@ const Page = () => {
               return (
                 <button
                   key={genre.id}
-                  onClick={() => handleGenreChange(genre.id, genre.name)}
+                  onClick={() =>
+                    handleGenreChange(String(genre.id), genre.name)
+                  }
                   className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-all ${
                     isActive
                       ? "bg-black text-white border-black"

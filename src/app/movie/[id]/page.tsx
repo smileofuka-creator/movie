@@ -169,7 +169,7 @@ const Demo = () => {
           ))}
         </div>
 
-        <Description movie={movie} movieId={params.id} />
+        <Description movie={movie} />
 
         {/* description  heseg */}
 
