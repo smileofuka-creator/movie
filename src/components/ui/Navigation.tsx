@@ -1,6 +1,6 @@
 "use client";
 
-import { Film, Search } from "lucide-react";
+import { Film, Search, Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -8,7 +8,7 @@ import * as React from "react";
 
 import { useTheme } from "next-themes";
 import axios from "axios";
-import { DarkModeSwitch } from "react-toggle-dark-mode";
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -27,15 +27,6 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from "@/components/ui/popover";
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuGroup,
-//   DropdownMenuItem,
-//   DropdownMenuLabel,
-//   DropdownMenuSeparator,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
   const router = useRouter();
@@ -148,7 +139,6 @@ const Navigation = () => {
 
             <div className="relative flex-1">
               <Popover open={open} onOpenChange={setOpen}>
-                {/* PopoverAnchor нь поп-апыг яг input-ийн доор байрлуулахыг зааж өгнө */}
                 <PopoverAnchor asChild>
                   <div className="relative flex items-center">
                     <Search
@@ -166,8 +156,6 @@ const Navigation = () => {
                     />
                   </div>
                 </PopoverAnchor>
-
-                {/* Фокусыг input дээр үлдээхийн тулд onOpenAutoFocus-ийг хааж өгнө */}
                 <PopoverContent
                   className="w-[300px] p-0 mt-1 bg-white dark:bg-gray-950 border dark:border-gray-800 rounded-md shadow-lg overflow-hidden"
                   align="start"
@@ -215,17 +203,21 @@ const Navigation = () => {
         </div>
 
         {/* Dark Mode Toggle */}
-        <div className="flex items-center justify-center p-2 border dark:border-gray-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <button
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="flex items-center justify-center p-2 border dark:border-gray-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          aria-label="Toggle dark mode"
+        >
           {mounted ? (
-            <DarkModeSwitch
-              checked={theme === "dark"}
-              onChange={toggleDarkMode}
-              size={20}
-            />
+            theme === "dark" ? (
+              <Sun className="w-5 h-5 text-yellow-400" />
+            ) : (
+              <Moon className="w-5 h-5 text-gray-700" />
+            )
           ) : (
             <div className="w-5 h-5" />
           )}
-        </div>
+        </button>
       </div>
     </nav>
   );
