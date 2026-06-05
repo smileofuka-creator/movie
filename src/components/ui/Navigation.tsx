@@ -225,14 +225,6 @@ const Navigation = () => {
           ) : (
             <div className="w-5 h-5" />
           )}
-
-          {/* <DarkModeSwitch
-            checked={theme === "dark"}
-            onChange={(checked: boolean) =>
-              setTheme(checked ? "dark" : "light")
-            }
-            size={20}
-          /> */}
         </div>
       </div>
     </nav>

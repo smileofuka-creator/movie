@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     // src/app/layout.tsx
     <html lang="en" suppressHydrationWarning>
-      {" "}
+      {/* {" "} */}
       <body>
         <ThemeProvider
           attribute="class"
