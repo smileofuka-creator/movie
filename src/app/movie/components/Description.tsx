@@ -89,7 +89,6 @@ const Description = ({ movie }: DescriptionProps) => {
           .map((c: CrewMember) => c.name);
         setWriters(wri);
 
-        // Stars — эхний 3 жүжигчин
         const st = response.data.cast
           .filter((c: CastMember) => c.order < 3)
           .map((c: CastMember) => c.name);

@@ -4,12 +4,12 @@ import Navigation from "@/components/ui/Navigation";
 
 export default function SearchPage() {
   return (
-    <main className="max-w-[1280px] mx-auto px-4 py-8">
-      <div className="flex  flex-col ">
-        <Navigation />
+    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-black dark:text-white transition-colors">
+      <Navigation />
+      <main className="flex-1 w-full max-w-[1280px] mx-auto px-6 py-10">
         <SearchResults />
-        <Footer />
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </div>
   );
 }
