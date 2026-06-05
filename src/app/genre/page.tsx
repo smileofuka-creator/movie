@@ -3,7 +3,7 @@
 import Footer from "@/components/ui/Footer";
 import axios from "axios";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Navigation from "@/components/ui/Navigation";
 import MovieCard from "@/components/ui/MovieCard";
 
@@ -39,7 +39,7 @@ const genresList = [
   { id: 37, name: "Western" },
 ];
 
-const Page = () => {
+const GenreContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const genreId = searchParams.get("id");
@@ -219,4 +219,11 @@ const Page = () => {
   );
 };
 
+const Page = () => {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <GenreContent />
+    </Suspense>
+  );
+};
 export default Page;
