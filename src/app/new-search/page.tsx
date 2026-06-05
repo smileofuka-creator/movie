@@ -7,9 +7,9 @@ const page = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const search = searchParams.get("name");
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setValue(value);
   };
