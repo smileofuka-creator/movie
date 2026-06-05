@@ -1,31 +1,33 @@
-"use client";
+// "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
-import { useState } from "react";
+// import { useSearchParams, useRouter } from "next/navigation";
+// import { useState } from "react";
 
-const page = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const search = searchParams.get("name");
-  const [value, setValue] = useState("");
+// const page = () => {
+//   const searchParams = useSearchParams();
+//   const router = useRouter();
+//   const search = searchParams.get("name");
+//   const [value, setValue] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setValue(value);
-  };
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     const { value } = e.target;
+//     setValue(value);
+//   };
 
-  const handleClick = () => {
-    router.push(`/new-search?name=${value}`);
-  };
-  return (
-    <div>
-      <input type="text" onChange={handleChange} />
-      <button className="border p-3 bg-gray-500" onClick={handleClick}>
-        Search
-      </button>
-      Search: {search}
-    </div>
-  );
-};
+//   const handleClick = () => {
+//     router.push(`/new-search?name=${value}`);
+//   };
+//   return (
+//     <div>
+//       <input type="text" onChange={handleChange} />
+//       <button className="border p-3 bg-gray-500" onClick={handleClick}>
+//         Search
+//       </button>
+//       Search: {search}
+//     </div>
+//   );
+// };
 
-export default page;
+// export default page;
+
+// hicheel dr hiisn jishee
