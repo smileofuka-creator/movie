@@ -48,7 +48,7 @@ const Navigation = () => {
           `https://api.themoviedb.org/3/genre/movie/list?language=en`,
           {
             headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
+              Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYWZiMDk4OGVhMWE0YWNhYjMyNTMxNjlhYzVkZmZlOSIsIm5iZiI6MTc3OTI3OTU4My4xMDYsInN1YiI6IjZhMGRhNmRmZDNjOTM0OWQxNTBlMjFhNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.huU2C0p6q7knEvDewSVpmN90dBFf7XPqtvjk1dy_GPg",
             },
           },
         );
@@ -73,7 +73,7 @@ const Navigation = () => {
           `https://api.themoviedb.org/3/search/movie?query=${value}&language=en-US&page=1`,
           {
             headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
+              Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYWZiMDk4OGVhMWE0YWNhYjMyNTMxNjlhYzVkZmZlOSIsIm5iZiI6MTc3OTI3OTU4My4xMDYsInN1YiI6IjZhMGRhNmRmZDNjOTM0OWQxNTBlMjFhNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.huU2C0p6q7knEvDewSVpmN90dBFf7XPqtvjk1dy_GPg",
             },
           },
         );
@@ -100,6 +100,9 @@ const Navigation = () => {
   const toggleDarkMode = (checked: boolean) => {
     setTheme(checked ? "dark" : "light");
   };
+  useEffect(() => {
+  console.log("GENRES:", genres);
+}, [genres]);
 
   return (
     <nav className="bg-white dark:bg-gray-900 border-b dark:border-gray-800 w-full flex justify-center transition-colors">

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Play, Star } from "lucide-react";
 import Navigation from "@/components/ui/Navigation";
 import Description from "../components/Description";
-import { MoreMovie } from "../components/MoreMovies";
+import  {MoreMovie}  from "../components/MoreMovies";
 import ReactPlayer from "react-player";
 
 interface Genre {
@@ -70,7 +70,7 @@ const Demo = () => {
 
     axios
       .get(
-        `https://api.themoviedb.org/3//movie/${params.id}/videos?language=en-US`,
+        `https://api.themoviedb.org/3/movie/${params.id}/videos?language=en-US`,
         {
           headers: {
             Authorization:
@@ -79,8 +79,13 @@ const Demo = () => {
         },
       )
       .then((response) => {
-        console.log(response, "data");
-        setWatchkey(response.data.results[1]);
+  const videos = response.data.results;
+  const trailer =
+    videos.find(
+      (v: any) => v.type === "Trailer" && v.site === "YouTube",
+    ) || videos[0];
+  setWatchkey(trailer?.key || "");
+    
       });
   }, [params.id]);
   console.log(movie);
@@ -133,11 +138,13 @@ const Demo = () => {
           />
 
           <div className="relative w-[760px] h-[428px]">
-            {IsTrailerShowed ? (
+            {IsTrailerShowed && watchkey ?(
               <ReactPlayer
                 src={`https://www.youtube.com/watch?v=${watchkey}`}
                 width={760}
                 height={428}
+                 playing
+    controls
                 volume={1}
               />
             ) : (
